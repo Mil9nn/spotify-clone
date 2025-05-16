@@ -8,6 +8,7 @@ import AlbumPage from './pages/album/AlbumPage'
 import AdminPage from "./pages/admin/AdminPage"
 
 import { Toaster } from 'react-hot-toast';
+import NotFound from "./pages/404/NotFound"
 
 function App() {
 
@@ -18,8 +19,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/albums/:albumId" element={<AlbumPage />} />
           <Route path="/messages" element={<ChatContainer />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/sso-callback" element={<AuthenticateWithRedirectCallback signUpForceRedirectUrl={"/auth-callback"} />} />
         <Route path="/auth-callback" element={<AuthCallback />} />
       </Routes>

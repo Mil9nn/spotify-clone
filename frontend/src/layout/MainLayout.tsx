@@ -3,9 +3,19 @@ import { Outlet } from 'react-router-dom'
 import LeftSidebar from './components/LeftSidebar'
 import FriendsActivity from "./components/FriendsActivity"
 import MusicPlayer from "@/components/MusicPlayer"
+import { useEffect, useState } from "react"
 const MainLayout = () => {
+  const [isMobile, setIsMobile] = useState(false);
 
-  const isMobile = window.innerWidth < 768;
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <div className="h-screen w-screen bg-black text-white">
@@ -14,17 +24,20 @@ const MainLayout = () => {
           <MusicPlayer />
           <LeftSidebar />
         </ResizablePanel>
+        <ResizableHandle />
 
-        <ResizableHandle />
-        <ResizablePanel minSize={60} maxSize={80} defaultSize={isMobile ? 80 : 60}>
-            <div className="py-2">
-              <Outlet />
-            </div>
+        {/* Main Content */}
+        <ResizablePanel defaultSize={isMobile ? 80 : 60}>
+          <div className="py-2">
+            <Outlet />
+          </div>
         </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel minSize={0} maxSize={25} collapsedSize={0} defaultSize={20}>
-          <FriendsActivity />
-        </ResizablePanel>
+        {!isMobile && <>
+          <ResizableHandle />
+          <ResizablePanel minSize={0} maxSize={25} collapsedSize={0} defaultSize={20}>
+            <FriendsActivity />
+          </ResizablePanel>
+        </>}
       </ResizablePanelGroup>
     </div>
   )

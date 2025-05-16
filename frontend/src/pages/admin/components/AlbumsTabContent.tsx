@@ -1,4 +1,3 @@
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useMusicStore } from '@/store/useMusicStore';
 import { useStatStore } from '@/store/useStatStore';
 import { Trash2 } from 'lucide-react';
@@ -12,7 +11,7 @@ const SongsTabContent = () => {
     const { isDeleting, isUploading, fetchStats, deleteAlbum } = useStatStore();
     const [showForm, setShowForm] = useState(false);
 
-    const handleDelete = async (albumId: unknown) => {
+    const handleDelete = async (albumId: string) => {
         await deleteAlbum(albumId);
         await getAlbums();
         await fetchAllSongs(); // Re-fetch after deletion
@@ -36,13 +35,14 @@ const SongsTabContent = () => {
                 {showForm && <AddAlbumDialog />}
 
                 {/* Songs List Placeholder */}
-                <ScrollArea className='h-[calc(100vh-433px)]'>
+                <div>
                     <table className="min-w-full text-sm text-left text-zinc-300">
                         <thead className="text-xs uppercase text-zinc-400 border-b border-zinc-700">
                             <tr>
                                 <th className="px-4 py-3">Title</th>
                                 <th className="px-4 py-3">Artist</th>
                                 <th className="px-4 py-3">Release Date</th>
+                                <th className="px-4 py-3">Songs</th>
                                 <th className="px-4 py-3 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -55,6 +55,7 @@ const SongsTabContent = () => {
                                     </td>
                                     <td className="px-4 py-3">{album.artist}</td>
                                     <td className="px-4 py-3">{album.updatedAt.split('T')[0]}</td>
+                                    <td className="px-4 py-3">{album.songs.length} songs</td>
                                     <td className="px-4 py-3 text-center space-x-3">
                                         <button disabled={isDeleting} onClick={() => { handleDelete(album._id) }} className="text-red-400 hover:text-red-500 transition cursor-pointer">
                                             <Trash2 className="w-4 h-4 inline" />
@@ -64,7 +65,7 @@ const SongsTabContent = () => {
                             </tbody>
                         })}
                     </table>
-                </ScrollArea>
+                </div>
             </div>
         </div>
     )

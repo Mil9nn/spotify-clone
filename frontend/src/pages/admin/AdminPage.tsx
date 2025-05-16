@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import DashboardStats from "./components/DashboardStats";
 import SongsTabContent from "./components/SongsTabContent";
 import AlbumsTabContent from "./components/AlbumsTabContent";
+import { Link } from "react-router-dom";
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState("Tab-1");
@@ -17,13 +18,16 @@ const AdminPage = () => {
   }, [fetchStats, fetchAllSongs, getAlbums]);
 
   return (
-    <div className="space-y-8 bg-zinc-900 text-zinc-100 rounded-md min-h-[86vh]">
+    <div className="space-y-8 bg-zinc-900 text-zinc-100 rounded-md min-h-screen">
       {/* Header */}
-      <div className="px-6 py-3 space-y-1">
-        <h2 className="text-2xl font-bold text-white">Music Manager</h2>
-        <p className="text-sm text-zinc-400">
-          Manage your music albums and tracks here.
-        </p>
+      <div className="flex items-center gap-5 px-6 py-3 space-y-1">
+        <Link to="/">
+          <div className="text-2xl font-bold"><img src="/spotifyLogo.svg" className="invert size-11" alt="spotify-logo" /></div>
+        </Link>
+        <div>
+          <h2 className="text-2xl font-bold text-white">Music Manager</h2>
+          <p className="text-sm text-zinc-400">Manage your music albums and tracks here.</p>
+        </div>
       </div>
 
       <DashboardStats />

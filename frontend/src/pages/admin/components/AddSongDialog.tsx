@@ -10,8 +10,18 @@ import {
 } from "@/components/ui/select"
 import { useMusicStore } from "@/store/useMusicStore";
 
+interface SongFormData {
+  title: string;
+  artist: string;
+  album: string;
+  duration: string;
+  imageFile: File | null;
+  audioFile: File | null;
+}
+
+
 const AddSongDialog = () => {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<SongFormData>({
         title: "",
         artist: "",
         album: "",
@@ -23,7 +33,7 @@ const AddSongDialog = () => {
     const { fetchStats, addSong } = useStatStore();
     const { albums, fetchAllSongs } = useMusicStore();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const data = new FormData();
@@ -31,11 +41,15 @@ const AddSongDialog = () => {
         data.append("artist", formData.artist);
         data.append("albumId", formData.album);
         data.append("duration", formData.duration);
-        data.append("audioFile", formData.audioFile);
-        data.append("imageFile", formData.imageFile);
+        if (formData.audioFile) {
+            data.append("audioFile", formData.audioFile);
+        }
+
+        if (formData.imageFile) {
+            data.append("imageFile", formData.imageFile);
+        }
 
         await addSong(data);
-
         await fetchAllSongs();
         await fetchStats();
     };
@@ -43,7 +57,7 @@ const AddSongDialog = () => {
     return (
         <div className="absolute min-w-full z-5">
 
-            <ScrollArea className="h-69">
+            <ScrollArea>
                 <form onSubmit={handleSubmit} className="space-y-4 bg-zinc-800 p-6 border border-zinc-700">
                     <h4 className="text-md font-semibold text-zinc-200">Song Details</h4>
                     <div className="grid md:grid-cols-2 gap-4">
@@ -65,6 +79,7 @@ const AddSongDialog = () => {
                                 name="artist"
                                 type="text"
                                 value={formData.artist}
+                                placeholder="Enter artist name"
                                 onChange={(e) => setFormData({ ...formData, artist: e.target.value })}
                                 required
                                 className="w-full px-3 py-2 rounded bg-zinc-900 text-white border border-zinc-700"
@@ -77,7 +92,7 @@ const AddSongDialog = () => {
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) =>
-                                    setFormData({ ...formData, imageFile: e.target.files[0] })
+                                    setFormData({ ...formData, imageFile: e.target.files?.[0] || null })
                                 }
                                 required
                                 className="w-full text-sm text-zinc-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-green-600 file:text-white hover:file:bg-green-700"
@@ -89,7 +104,7 @@ const AddSongDialog = () => {
                                 name="audio"
                                 type="file"
                                 onChange={(e) =>
-                                    setFormData({ ...formData, audioFile: e.target.files[0] })
+                                    setFormData({ ...formData, audioFile: e.target.files?.[0] || null })
                                 }
                                 accept="audio/*"
                                 required

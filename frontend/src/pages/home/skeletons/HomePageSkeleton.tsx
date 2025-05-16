@@ -1,9 +1,9 @@
 
 
-const GridSongSectionSkeleton = ({ title }: { title: string }) => (
+export const GridSongSectionSkeleton = ({ title }: { title: string }) => (
   <section className="mb-8">
     <div className="flex items-center justify-between mb-4">
-      <div className="h-6 w-40 bg-zinc-600 rounded animate-pulse" />
+      <h2 className="text-lg font-semibold text-white">{title}</h2>
       <div className="h-4 w-16 bg-zinc-600 rounded animate-pulse" />
     </div>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -22,12 +22,3 @@ const GridSongSectionSkeleton = ({ title }: { title: string }) => (
     </div>
   </section>
 );
-
-const HomePageSkeleton = () => (
-  <div className="bg-zinc-800 h-[calc(100vh-75px)] p-4 overflow-y-auto">
-    <GridSongSectionSkeleton title="Made For You" />
-    <GridSongSectionSkeleton title="Trending" />
-  </div>
-);
-
-export default HomePageSkeleton;

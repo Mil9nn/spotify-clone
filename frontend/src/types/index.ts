@@ -1,43 +1,48 @@
 export interface Song {
-	_id: string;
-	title: string;
-	artist: string;
-	albumId: string | null;
-	imageUrl: string;
-	audioUrl: string;
-	duration: number;
-	createdAt: string;
-	updatedAt: string;
+    _id: string;
+    title: string;
+    duration: string;
+    artist: string;
+    imageUrl: string;
+    audioUrl: string;
+    createdAt: string;
+    updatedAt: string;
+    albumId: string;
 }
 
 export interface Album {
-	_id: string;
-	title: string;
-	artist: string;
-	imageUrl: string;
-	releaseYear: number;
-	songs: Song[];
+  _id: string;
+  imageUrl: string;
+  title: string;
+  artist: string;
+  releaseYear: number;
+  updatedAt: string;
+  songs: Song[];
 }
 
-export interface Stats {
-	totalSongs: number;
-	totalAlbums: number;
-	totalUsers: number;
-	totalArtists: number;
+export interface selectedAlbum {
+    _id: string;
+    title: string;
+    imageUrl: string;
+    artist: string;
+    songs: Song[];
+    releaseYear: string;
+    createdAt: string;
 }
 
-export interface Message {
-	_id: string;
-	senderId: string;
-	receiverId: string;
-	content: string;
-	createdAt: string;
-	updatedAt: string;
-}
-
-export interface User {
-	_id: string;
-	clerkId: string;
-	fullName: string;
-	imageUrl: string;
+export interface MusicStore {
+    albums: Album[];
+    users: unknown[];
+    songs: Song[];
+    isLoading: boolean;
+    selectedAlbum: selectedAlbum | null;
+    getAlbums: () => Promise<void>;
+    getAlbumById: (id: unknown) => Promise<void>;
+    fetchAllSongs: () => Promise<void>;
+    fetchFeaturedSongs: () => Promise<void>;
+    fetchTrendingSongs: () => Promise<void>;
+    fetchMadeForYouSongs: () => Promise<void>;
+    featuredSongs: Song[];
+    trendingSongs: Song[];
+    madeForYouSongs: Song[];
 }

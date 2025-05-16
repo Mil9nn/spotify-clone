@@ -1,4 +1,3 @@
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useMusicStore } from '@/store/useMusicStore';
 import { useStatStore } from '@/store/useStatStore';
 import { Trash2 } from 'lucide-react';
@@ -12,7 +11,7 @@ const SongsTabContent = () => {
     const { isDeleting, isUploading, fetchStats, deleteSong } = useStatStore();
     const [showForm, setShowForm] = useState(false);
 
-    const handleDelete = async (songId) => {
+    const handleDelete = async (songId: string) => {
         await deleteSong(songId);
         await fetchAllSongs(); // Re-fetch after deletion
         await fetchStats();
@@ -35,7 +34,7 @@ const SongsTabContent = () => {
                 {showForm && <AddSongDialog />}
 
                 {/* Songs List Placeholder */}
-                <ScrollArea className='h-[calc(100vh-433px)]'>
+                <div>
                     <table className="min-w-full text-sm text-left text-zinc-300">
                         <thead className="text-xs uppercase text-zinc-400 border-b border-zinc-700">
                             <tr>
@@ -63,7 +62,7 @@ const SongsTabContent = () => {
                             </tbody>
                         })}
                     </table>
-                </ScrollArea>
+                </div>
             </div>
         </div>
     )

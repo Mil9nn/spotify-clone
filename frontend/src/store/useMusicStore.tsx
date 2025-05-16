@@ -1,53 +1,7 @@
 import { axiosInstance } from '@/lib/axios';
 import { create } from 'zustand'
 
-interface Song {
-    _id: string;
-    title: string;
-    duration: string;
-    artist: string;
-    imageUrl: string;
-    audioUrl: string;
-    createdAt: string;
-    updatedAt: string;
-    albumId: string;
-}
-
-interface Album {
-  _id: string;
-  imageUrl: string;
-  title: string;
-  artist: string;
-  releaseYear: number;
-  updatedAt: string;
-}
-
-interface selectedAlbum {
-    _id: string;
-    title: string;
-    imageUrl: string;
-    artist: string;
-    songs: Song[];
-    releaseYear: string;
-    createdAt: string;
-}
-
-interface MusicStore {
-    albums: Album[];
-    users: unknown[];
-    songs: unknown[];
-    isLoading: boolean;
-    selectedAlbum: selectedAlbum | null;
-    getAlbums: () => Promise<void>;
-    getAlbumById: (id: unknown) => Promise<void>;
-    fetchAllSongs: () => Promise<void>;
-    fetchFeaturedSongs: () => Promise<void>;
-    fetchTrendingSongs: () => Promise<void>;
-    fetchMadeForYouSongs: () => Promise<void>;
-    featuredSongs: Song[];
-    trendingSongs: Song[];
-    madeForYouSongs: Song[];
-}
+import type { MusicStore } from "@/types";
 
 export const useMusicStore = create<MusicStore>((set) => ({
 
@@ -109,7 +63,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
         set({ isLoading: true });
         try {
             const response = await axiosInstance.get("/songs/made-for-you");
-            set({ trendingSongs: response.data });
+            set({ madeForYouSongs: response.data });
         } catch (error) {
             console.log("Error getting featured songs", error);
         } finally {
@@ -121,7 +75,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
         set({ isLoading: true });
         try {
             const response = await axiosInstance.get("/songs/trending");
-            set({ madeForYouSongs: response.data });
+            set({ trendingSongs: response.data });
         } catch (error) {
             console.log("Error getting featured songs", error);
         } finally {

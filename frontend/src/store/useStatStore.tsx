@@ -2,21 +2,28 @@ import { create } from 'zustand';
 import { axiosInstance } from '@/lib/axios';
 import toast from 'react-hot-toast';
 
+interface StatsData {
+  totalSongs: number;
+  totalAlbums: number;
+  totalArtists: number;
+  totalUsers: number;
+}
+
 interface StatStore {
-  stats: unknown[];
+  stats: StatsData | null;
   fetchStats: () => Promise<void>;
   isDeleting: boolean;
   isUploading: boolean;
   setIsDeleting: (isDeleting: boolean) => void;
   setisUploading: (isUploading: boolean) => void;
-  addSong: (data: unknown) => Promise<void>;
-  deleteSong: (id: unknown) => Promise<void>;
-  addAlbum: (data: unknown) => Promise<void>;
-  deleteAlbum: (id: unknown) => Promise<void>;
+  addSong: (data: FormData) => Promise<void>;
+  deleteSong: (id: string) => Promise<void>;
+  addAlbum: (data: FormData) => Promise<void>;
+  deleteAlbum: (id: string) => Promise<void>;
 }
 
 export const useStatStore = create<StatStore>((set) => ({
-  stats: [],
+  stats: null,
   isDeleting: false,
   isUploading: false,
   setIsDeleting: (isDeleting) => set({ isDeleting }),
@@ -31,7 +38,7 @@ export const useStatStore = create<StatStore>((set) => ({
     }
   },
 
-  addSong: async (data: unknown) => {
+  addSong: async (data: FormData) => {
     set({ isUploading: true });
     try {
       const response = await axiosInstance.post("/admin/songs", data, {
@@ -46,7 +53,7 @@ export const useStatStore = create<StatStore>((set) => ({
     }
   },
 
-  deleteSong: async (id: unknown) => {
+  deleteSong: async (id: string) => {
     set({ isDeleting: true });
     try {
       const response = await axiosInstance.delete(`/admin/songs/${id}`);
@@ -58,7 +65,7 @@ export const useStatStore = create<StatStore>((set) => ({
     }
   },
 
-  addAlbum: async (data: unknown) => {
+  addAlbum: async (data: FormData) => {
     set({ isUploading: true });
     try {
       const response = await axiosInstance.post("/admin/albums", data, {
@@ -73,7 +80,7 @@ export const useStatStore = create<StatStore>((set) => ({
     }
   },
 
-  deleteAlbum: async (id: unknown) => {
+  deleteAlbum: async (id: string) => {
     set({ isDeleting: true });
     try {
       const response = await axiosInstance.delete(`/admin/albums/${id}`);

@@ -33,8 +33,13 @@ export default function MusicPlayer() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    isPlaying ? audio.play() : audio.pause();
+    if (isPlaying) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
   }, [isPlaying]);
+
 
   // Playback events
   useEffect(() => {

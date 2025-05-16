@@ -13,7 +13,7 @@ const LeftSidebar = () => {
 
     useEffect(() => {
         getAlbums();
-    }, []);
+    }, [getAlbums]);
 
     return (
         <div className="flex flex-col h-[88vh] p-2">
