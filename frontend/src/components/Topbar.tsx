@@ -3,11 +3,12 @@ import { LayoutDashboard } from "lucide-react";
 import SignInOAuthButtons from './SignInOAuthButtons';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import { useChatStore } from '@/store/useChatStore';
 
 const Topbar = () => {
-    const isAdmin = true;
+    const { isAdmin } = useChatStore();
     return (
-        <header className="flex justify-between items-center px-6 py-4 bg-black text-white shadow">
+        <header className="flex justify-between items-center px-6 py-4 bg-zinc-900 text-white shadow rounded-t-md">
             {/* Left: Logo and Title */}
             <div className="flex items-center space-x-3">
                 {/* Replace with your logo */}

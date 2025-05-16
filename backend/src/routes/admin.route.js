@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(protectRoute, requireAdmin);
 
-router.get('/check', checkAdmin); // checking if user is admin route
+router.get('/check', checkAdmin);
 
 router.post('/songs', createSong);
 router.delete('/songs/:id', deleteSong);

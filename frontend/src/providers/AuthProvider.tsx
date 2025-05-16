@@ -2,6 +2,7 @@ import { useAuth } from "@clerk/clerk-react"
 import { useEffect, useState } from "react";
 import { axiosInstance } from '../lib/axios.ts'
 import { Loader } from 'lucide-react'
+import { useChatStore } from "@/store/useChatStore.tsx";
 
 const updateApiToken = async (token: string | null) => {
     if (token) {
@@ -15,6 +16,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { getToken, isLoaded } = useAuth();
     const [loading, setLoading] = useState(false);
 
+    const { checkAdmin } = useChatStore();
+
     useEffect(() => {
         const initAuth = async () => {
             if(!isLoaded) return;
@@ -22,6 +25,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             try {
                 const token = await getToken();
                 updateApiToken(token);
+                if(token) {
+                    checkAdmin();
+                }
             } catch (error) {
                 console.log("Error in auth provider", error);
             } finally {

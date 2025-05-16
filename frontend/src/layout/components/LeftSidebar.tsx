@@ -9,14 +9,14 @@ import { useMusicStore } from '@/store/useMusicStore'
 import PlaylistSkeleton from '../skeletons/PlaylistSkeleton'
 
 const LeftSidebar = () => {
-    const { albums, getAlbums, isLoadingAlbums } = useMusicStore();
+    const { albums, getAlbums, isLoading } = useMusicStore();
 
     useEffect(() => {
         getAlbums();
     }, []);
 
     return (
-        <div className="flex flex-col h-full p-3">
+        <div className="flex flex-col h-[88vh] p-2">
 
             <div className="flex flex-col gap-3 bg-zinc-900 p-2 py-4 rounded-md">
                 <Link to="/" className={cn(buttonVariants({ variant: "ghost", className: "flex justify-start" }))}>
@@ -30,13 +30,13 @@ const LeftSidebar = () => {
             </div>
 
             {/* Playlist Section */}
-            <div className="mt-4 flex-1 overflow-y-auto bg-zinc-900 p-2 rounded-md">
+            <div className="mt-2 flex-1 overflow-y-auto bg-zinc-900 p-2 rounded-md">
                 <h3 className="flex items-center gap-3 text-xs text-gray-400 uppercase tracking-wider mb-5">
                     <List />
                     <span className="hidden sm:inline">Playlists</span>
                 </h3>
 
-                {isLoadingAlbums ? <PlaylistSkeleton /> : (<ScrollArea className="rounded-md">
+                {isLoading ? <PlaylistSkeleton /> : (<ScrollArea className="rounded-md">
                     <div className="p-4 gap-3 flex flex-col">
                         {
                             albums.map((album) => {

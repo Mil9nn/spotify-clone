@@ -4,7 +4,7 @@ import { protectRoute, requireAdmin } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
-router.use(protectRoute, requireAdmin);
+// router.use(protectRoute, requireAdmin);
 
 router.get('/', getAllSongs);
 router.get('/featured', getFeaturedSongs);
