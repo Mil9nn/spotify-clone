@@ -35,10 +35,6 @@ app.use(fileUpload({
     limits: { fileSize: 10 * 1024 * 1024 },
 }));
 
-app.get('/', (req, res) => {
-    res.send("server is live...");
-})
-
 // cron jobs
 const tempDir = path.join(process.cwd(), "tmp");
 cron.schedule("0 * * * *", () => {
