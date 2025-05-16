@@ -34,7 +34,7 @@ const SongsTabContent = () => {
                 {showForm && <AddSongDialog />}
 
                 {/* Songs List Placeholder */}
-                <div>
+                <div className="min-w-[350px] overflow-x-auto">
                     <table className="min-w-full text-sm text-left text-zinc-300">
                         <thead className="text-xs uppercase text-zinc-400 border-b border-zinc-700">
                             <tr>

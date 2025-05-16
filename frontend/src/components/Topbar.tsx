@@ -12,8 +12,8 @@ const Topbar = () => {
             {/* Left: Logo and Title */}
             <div className="flex items-center space-x-3">
                 {/* Replace with your logo */}
-                <div className="text-2xl font-bold"><img src="/spotifyLogo.svg" className="invert" alt="spotify-logo" /></div>
-                <h1 className="text-xl font-semibold">Spotify</h1>
+                <div className="text-2xl font-bold w-8"><img src="/spotifyLogo.svg" className="invert" alt="spotify-logo" /></div>
+                <h1 className="hidden sm:block text-xl font-semibold">Spotify</h1>
             </div>
 
             {/* Right: Google Button */}
@@ -27,7 +27,7 @@ const Topbar = () => {
                             <Button variant={"secondary"} className="p-5">
                                 <Link to="/admin" className="flex items-center">
                                     <LayoutDashboard className="w-5 h-5" />
-                                    <span className="ml-2">Admin Dashboard</span>
+                                    <span className="hidden sm:inline ml-2">Admin Dashboard</span>
                                 </Link>
                             </Button>
                         )}

@@ -30,7 +30,7 @@ const LeftSidebar = () => {
             </div>
 
             {/* Playlist Section */}
-            <div className="mt-2 flex-1 overflow-y-auto bg-zinc-900 p-2 rounded-md">
+            <div className="mt-2 flex-1 overflow-y-auto bg-zinc-900 sm:p-2 rounded-md">
                 <h3 className="flex items-center gap-3 text-xs text-gray-400 uppercase tracking-wider mb-5">
                     <List />
                     <span className="hidden sm:inline">Playlists</span>

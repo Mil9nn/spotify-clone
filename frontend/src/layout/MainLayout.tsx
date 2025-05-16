@@ -27,7 +27,7 @@ const MainLayout = () => {
         <ResizableHandle />
 
         {/* Main Content */}
-        <ResizablePanel defaultSize={isMobile ? 80 : 60}>
+        <ResizablePanel defaultSize={isMobile ? 50 : 80}>
           <div className="py-2">
             <Outlet />
           </div>
