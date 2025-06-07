@@ -1,20 +1,24 @@
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, Menu } from "lucide-react";
 import SignInOAuthButtons from './SignInOAuthButtons';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { useChatStore } from '@/store/useChatStore';
+import { useMusicStore } from '@/store/useMusicStore';
 
 const Topbar = () => {
     const { isAdmin } = useChatStore();
+    const { hideSidebar, setHideSideBar } = useMusicStore();
     return (
         <header className="flex justify-between items-center px-6 py-4 bg-zinc-900 text-white shadow rounded-t-md">
             {/* Left: Logo and Title */}
-            <div className="flex items-center space-x-3">
+            {!hideSidebar ? (<div className="flex items-center space-x-3">
                 {/* Replace with your logo */}
                 <div className="text-2xl font-bold w-8"><img src="/spotifyLogo.svg" className="invert" alt="spotify-logo" /></div>
                 <h1 className="hidden sm:block text-xl font-semibold">Spotify</h1>
-            </div>
+            </div>) : (<button className="cursor-pointer" onClick={() => {setHideSideBar(false)}}>
+                <Menu />
+            </button>)}
 
             {/* Right: Google Button */}
             <div className="flex items-center gap-3">

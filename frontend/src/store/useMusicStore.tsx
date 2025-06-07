@@ -9,6 +9,9 @@ export const useMusicStore = create<MusicStore>((set) => ({
     users: [],
     songs: [],
     isLoading: false,
+    hideSidebar: false,
+    setHideSideBar: (hideSidebar) => set({ hideSidebar }),
+
     selectedAlbum: null,
     featuredSongs: [],
     trendingSongs: [],

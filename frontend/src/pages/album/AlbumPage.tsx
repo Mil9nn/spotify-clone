@@ -1,12 +1,12 @@
 import AlbumPageSkeleton from "@/layout/skeletons/AlbumPageSkeleton";
 import { useMusicStore } from "@/store/useMusicStore";
 import { usePlayerStore } from "@/store/usePlayerStore";
-import { CalendarDays, Clock, Music, Pause, Play } from "lucide-react";
+import { CalendarDays, Clock, Menu, Music, Pause, Play } from "lucide-react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const AlbumPage = () => {
-  const { getAlbumById, selectedAlbum, isLoading } = useMusicStore();
+  const { getAlbumById, selectedAlbum, isLoading, setHideSideBar } = useMusicStore();
   const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
   const { albumId } = useParams();
 
@@ -19,10 +19,10 @@ const AlbumPage = () => {
   if (!selectedAlbum) return <AlbumPageSkeleton />
 
   const handlePlayAlbum = () => {
-    if(!selectedAlbum) return;
+    if (!selectedAlbum) return;
 
     const isCurrentAlbumPlaying = selectedAlbum?.songs.some((song) => song._id === currentSong?._id);
-    if(isCurrentAlbumPlaying) {
+    if (isCurrentAlbumPlaying) {
       togglePlay();
     } else {
       playAlbum(selectedAlbum?.songs);
@@ -37,10 +37,13 @@ const AlbumPage = () => {
 
   return (
     <div className="">
-      <div className="relative bg-zinc-900 text-white p-6 shadow-lg h-[86vh] rounded-md">
+      <div className="relative bg-zinc-900 text-white p-6 shadow-lg h-full rounded-md">
+        <button className="cursor-pointer text-white absolute z-15 top-3 left-2" onClick={() => { setHideSideBar(false) }}>
+        <Menu />
+      </button>
         <div className="absolute top-0 left-0 w-full h-85 bg-gradient-to-b from-[#5038a0] to-transparent rounded-md"></div>
 
-        <div className="flex items-center gap-5 relative z-10 mb-5">
+        <div className="flex items-center py-5 gap-5 relative z-10 mb-5">
           <img
             className="w-60 h-60 object-cover rounded-md mb-4"
             src={selectedAlbum.imageUrl}
@@ -55,8 +58,8 @@ const AlbumPage = () => {
           </div>
 
           <button onClick={handlePlayAlbum} className="absolute -bottom-5 w-12 h-12 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center shadow-md transition">
-          {isPlaying ? (<Pause className="text-black" />) : (<Play className="text-black" />)}
-        </button>
+            {isPlaying ? (<Pause className="text-black" />) : (<Play className="text-black" />)}
+          </button>
         </div>
 
         {/* song list */}
@@ -94,7 +97,7 @@ const AlbumPage = () => {
                 const isCurrentSong = currentSong?._id === song._id;
 
                 return (
-                  <tr onClick={() => {handlePlaySong(index)}} key={song._id} className="hover:bg-zinc-800 group transition">
+                  <tr onClick={() => { handlePlaySong(index) }} key={song._id} className="hover:bg-zinc-800 group transition">
                     <td className="p-3 w-13">
                       {isCurrentSong && isPlaying ? (<Music className="text-green-500" />) : (<span className="group-hover:hidden">{index + 1}</span>)}
                       {!isCurrentSong && <Play className="hidden group-hover:block" />}

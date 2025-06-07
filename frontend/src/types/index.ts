@@ -35,6 +35,9 @@ export interface MusicStore {
     users: unknown[];
     songs: Song[];
     isLoading: boolean;
+    
+    hideSidebar: boolean;
+    setHideSideBar: (hideSidebar: boolean) => void;
     selectedAlbum: selectedAlbum | null;
     getAlbums: () => Promise<void>;
     getAlbumById: (id: unknown) => Promise<void>;
