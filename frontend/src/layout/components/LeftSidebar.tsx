@@ -38,10 +38,10 @@ const LeftSidebar = () => {
                     <span>Home</span>
                 </Link>
 
-                {/* <Link to="/messages" className={cn(buttonVariants({ variant: "ghost", className: "flex justify-start" }))}>
+                <Link to="/messages" className={cn(buttonVariants({ variant: "ghost", className: "flex justify-start" })) + "hidden"}>
                     <MessageCircle className="w-5 h-5" />
                     <span>Messages</span>
-                </Link> */}
+                </Link>
             </div>
 
             {/* Playlist Section */}
