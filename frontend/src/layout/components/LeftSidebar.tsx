@@ -54,7 +54,7 @@ const LeftSidebar = () => {
                 {isLoading ? (
                     <PlaylistSkeleton />
                 ) : (
-                    <ScrollArea className="rounded-md h-[300px] md:h-full">
+                    <ScrollArea className="rounded-md h-[300px] md:h-[calc(100vh-235px)]">
                         <div className="p-4 gap-3 flex flex-col">
                             {albums.map((album) => (
                                 <Link
